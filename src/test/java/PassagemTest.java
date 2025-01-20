@@ -16,52 +16,56 @@ public class PassagemTest {
     // 2.1 - Atributos
     private WebDriver driver; // objeto do Selenium
 
-    // 2.2 - Funções e Métodos//
+    // 2.2 - Funções e Métodos //
 
-    // Antes dos Teste
+    // Ante do Teste
     @BeforeEach
     public void iniciar() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(); // instanciar o objeto do Selenium como ChromeDriver
         driver.manage().window().maximize(); // maximiza a janela do browser
-
     }
 
-    // Depois dos Teste
+    // Depois do Teste
     @AfterEach
     public void finalizar() {
         driver.quit(); // destroi o objeto do selenium
-
     }
 
     // Teste
     @Test
     public void comprarPassagem() {
         driver.get("https://www.blazedemo.com"); // abre o site
-        // seleciona origem, destino e aperta botão "Fing Flights"
+        // Seleciona origem, destino e aperta botão "Fing Flights"
         driver.findElement(By.name("fromPort")).click(); // clica no combo
         {
             WebElement dropdown = driver.findElement(By.name("fromPort"));
             dropdown.findElement(By.xpath("//option[. = 'São Paolo']")).click();
         }
 
-        // combo Destino
+
+        // Combo Destino
         {
             WebElement dropdown = driver.findElement(By.name("toPort"));
             dropdown.click();
             dropdown.findElement(By.xpath("//option[. = 'Cairo']")).click();
         }
 
+
         // Clicar no botão
         driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
+
+
         // Transição de Página//
+
+
 
         // Verifica se foi selecionado minha cidade.
         assertEquals("Flights from São Paolo to Cairo:",
                 driver.findElement(By.cssSelector("h3")).getText());
 
-        // clica no botão de voo desejado.
+        // Clica no botão de voo desejado.
         driver.findElement(By.cssSelector("tr:nth-child(1) .btn")).click();
 
         // Verifica se entrou no agendamento de voo correto
